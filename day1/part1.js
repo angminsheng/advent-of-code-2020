@@ -10,6 +10,8 @@ const sumTo2020 = (arr) => {
   return "not found"
 };
 
-let answer = sumTo2020(input)
+//0.464ms
 
-console.log(answer)
+console.time("performance measurement")
+let answer = sumTo2020(input)
+console.timeEnd("performance measurement")
