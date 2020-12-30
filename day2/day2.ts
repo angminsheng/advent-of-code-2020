@@ -1,28 +1,30 @@
-const fs = require('fs')
+const day2 = () =>{
+  const fs = require('fs')
 
-const lines = fs.readFileSync('input.txt', {encoding:'utf-8'}).split('\n')
+  const lines = fs.readFileSync('input.txt', {encoding:'utf-8'}).split('\n')
 
-const matchingLines = lines.reduce((acc,line)=>{
-  const [,min,max,char,input] = /^(?<min>\d+)-(?<max>\d+) (?<char>.): (?<input>.+)$/.exec(line)
+  const matchingLines = lines.reduce((acc,line)=>{
+    const [,min,max,char,input] = /^(?<min>\d+)-(?<max>\d+) (?<char>.): (?<input>.+)$/.exec(line)
 
-  const charNum = input.split('').filter(e=>e === char).length
+    const charNum = input.split('').filter(e=>e === char).length
 
-  if(charNum >= Number(min) && charNum <= Number(max)) acc+=1
+    if(charNum >= Number(min) && charNum <= Number(max)) acc+=1
 
-  return acc
-},0)
+    return acc
+  },0)
 
-console.log(matchingLines)
+  console.log(matchingLines)
 
-const secondMatchingLines = lines.reduce((acc,line)=>{
-  const [,pos1,pos2,char,input] = /^(?<min>\d+)-(?<max>\d+) (?<char>.): (?<input>.+)$/.exec(line)
+  const secondMatchingLines = lines.reduce((acc,line)=>{
+    const [,pos1,pos2,char,input] = /^(?<min>\d+)-(?<max>\d+) (?<char>.): (?<input>.+)$/.exec(line)
 
-  const bool1 = input[Number(pos1)-1] === char
-  const bool2 = input[Number(pos2)-1] === char
+    const bool1 = input[Number(pos1)-1] === char
+    const bool2 = input[Number(pos2)-1] === char
 
-  if (bool1 != bool2) acc+=1
+    if (bool1 != bool2) acc+=1
 
-  return acc
-},0)
+    return acc
+  },0)
 
-console.log(secondMatchingLines)
+  console.log(secondMatchingLines)
+}
