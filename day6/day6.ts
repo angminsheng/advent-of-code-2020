@@ -1,21 +1,19 @@
 const fs = require('fs')
 
-const input = fs.readFileSync('input.txt').toString().split(/^\s*[\r\n]/gm)
+//If the encoding option is specified then this function returns a string. Otherwise it returns a buffer.
+
+const input = fs.readFileSync('input.txt', {encoding: 'utf-8'}).split(/\n\n/)
 
 let totalNumber = input.reduce((acc,val)=>{
-  return acc += val.split("").filter((val,i,arr)=>arr.indexOf(val)===i && val !== "\n").length
-},0)
+  const uniq = val.replace(/\n/g,"").split("").filter((val,i,arr)=>arr.indexOf(val)===i)
 
+  const secondNumber = uniq.filter((uni,i)=> val.split("\n").filter(x=>x).every(el=>el.includes(uni))).length
 
-let secondNumber = input.reduce((acc,val)=>{
-  let answers = val.split('\n').filter(a=>a)
+  return {
+    first: acc.first += uniq.length,
+    second: acc.second += secondNumber
+  }
 
-  let combined = answers.join("").split("").sort().filter((val,i,arr)=> {
-    return (arr.lastIndexOf(val)-i) === answers.length-1})
+},{first:0, second:0})
 
-  return acc += combined.length
-
-
-},0)
-
-console.log(secondNumber)
+console.log(totalNumber)
